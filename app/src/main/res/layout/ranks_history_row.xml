@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clickCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#fff"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="8dp"
+        card_view:cardMaxElevation="10dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/list_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:singleLine="false"
+                android:text="@{bestSeller.status}"
+                android:textSize="16sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/textView3"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:text="ListName" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:singleLine="false"
+                android:text="@{bestSeller.num_results}"
+                card_view:layout_constraintEnd_toEndOf="@+id/list_name"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toEndOf="@+id/textView5"
+                card_view:layout_constraintTop_toBottomOf="@+id/list_name"
+                tools:text="Display Name" />
+
+            <TextView
+                android:id="@+id/published_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:text="@{bestSeller.copyright}"
+                card_view:layout_constraintEnd_toEndOf="@+id/description"
+                card_view:layout_constraintStart_toEndOf="@+id/textView7"
+                card_view:layout_constraintTop_toBottomOf="@+id/description"
+                tools:text="Publish Date" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="List Name"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="@+id/list_name" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Display Name"
+                card_view:layout_constraintStart_toStartOf="@+id/textView3"
+                card_view:layout_constraintTop_toTopOf="@+id/description" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Published Date"
+                card_view:layout_constraintStart_toStartOf="@+id/textView5"
+                card_view:layout_constraintTop_toTopOf="@+id/published_date" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bestsellers Date"
+                card_view:layout_constraintStart_toStartOf="@+id/textView7"
+                card_view:layout_constraintTop_toTopOf="@+id/bestsellers_date" />
+
+            <TextView
+                android:id="@+id/bestsellers_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="bestsellers_date"
+                card_view:layout_constraintEnd_toEndOf="@+id/published_date"
+                card_view:layout_constraintStart_toEndOf="@+id/textView9"
+                card_view:layout_constraintTop_toBottomOf="@+id/published_date" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rank"
+                card_view:layout_constraintStart_toStartOf="@+id/textView9"
+                card_view:layout_constraintTop_toTopOf="@+id/rank" />
+
+            <TextView
+                android:id="@+id/rank"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                card_view:layout_constraintEnd_toEndOf="@+id/bestsellers_date"
+                card_view:layout_constraintStart_toEndOf="@+id/textView15"
+                card_view:layout_constraintTop_toBottomOf="@+id/bestsellers_date" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weeks on List"
+                card_view:layout_constraintStart_toStartOf="@+id/textView15"
+                card_view:layout_constraintTop_toTopOf="@+id/weeks_on_list" />
+
+            <TextView
+                android:id="@+id/weeks_on_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="TextView"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="@+id/rank"
+                card_view:layout_constraintStart_toEndOf="@+id/textView17"
+                card_view:layout_constraintTop_toBottomOf="@+id/rank" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
