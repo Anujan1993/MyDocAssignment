@@ -1,8 +1,6 @@
 package com.anujan.mydocassignment.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.anujan.mydocassignment.EndPoints
 import com.anujan.mydocassignment.room.dao.BestSellerDao
 import com.anujan.mydocassignment.room.dao.RankHistoryDao
 import com.anujan.mydocassignment.room.entity.BestSellerList
@@ -17,48 +15,32 @@ class RoomRepository  @Inject constructor(
     var bestSellersDao: BestSellerDao,var rankHistoryDao: RankHistoryDao
 ) {
 
-    //val bestSellerList: LiveData<List<BestSellerList>> = bestSellersDao.findBestSeller()
-
     fun getBestSellers() = bestSellersDao.findBestSeller()
 
-    suspend fun deleteBestSellers(title:String){
-        bestSellersDao.deleteAll(title)
+    suspend fun deleteBestSellers(){
+        bestSellersDao.deleteAll()
     }
 
-    suspend fun bestSellers(
-        title: String,
-        description:String,
-        publisher:String,
-        contributor:String,
-        author:String,
-        price:String
-    ){
+    suspend fun bestSellers(bestSellerList: ArrayList<BestSellerList>){
         val registerResult = MutableLiveData<Result<String>>()
         withContext(Dispatchers.IO) {
             try {
-                bestSellersDao.insert(BestSellerList(title,description,publisher,contributor,author,price))
+                bestSellersDao.insertAll(bestSellerList)
                 registerResult.postValue(Result.Success("Interst Success"))
             }
             catch (exception : Exception){
                 registerResult.postValue(Result.Error(Exception("Error")))
             }
         }
-       // return registerResult
     }
 
     suspend fun storeRankHistory(
-        bookName:String,
-        list_name:String,
-        display_name:String,
-        published_date:String,
-        bestsellers_date:String,
-        rank:String,
-        weeks_on_list:String
+            rankHistory: ArrayList<RankHistory>
     ){
         val registerResult = MutableLiveData<Result<String>>()
         withContext(Dispatchers.IO) {
             try {
-                rankHistoryDao.insert(RankHistory(bookName,list_name,display_name,published_date,bestsellers_date,rank,weeks_on_list))
+                rankHistoryDao.insertAll(rankHistory)
                 registerResult.postValue(Result.Success("Interst Success"))
             }
             catch (exception : Exception){
@@ -68,8 +50,8 @@ class RoomRepository  @Inject constructor(
     }
 
 
-    suspend fun deleteRankHistory(title:String){
-        rankHistoryDao.delete(title)
+    suspend fun deleteRankHistory(){
+        rankHistoryDao.delete()
     }
 
     fun getRankHistory(bookName:String) = rankHistoryDao.findRankHistory(bookName)

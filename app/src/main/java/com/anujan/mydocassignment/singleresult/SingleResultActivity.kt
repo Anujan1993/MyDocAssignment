@@ -67,8 +67,15 @@ class SingleResultActivity : AppCompatActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            rankRV.visibility = View.VISIBLE
-                            progress.visibility = View.GONE
+                            if(resource.data?.size ==0){
+                                rankRV.visibility = View.GONE
+                                progress.visibility = View.GONE
+                                noData.visibility = View.VISIBLE
+                            }
+                            else{
+                                rankRV.visibility = View.VISIBLE
+                                progress.visibility = View.GONE
+                            }
                             resource.data?.let { it1 ->
                                 resource.data.let { rankHistory -> retrieveList(rankHistory) }
                             }

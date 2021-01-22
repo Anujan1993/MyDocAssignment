@@ -10,9 +10,9 @@ interface BestSellerDao {
     @Query("SELECT * FROM BestSeller")
     fun findBestSeller(): List<BestSellerList>
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(bestSellerList: BestSellerList): Long
+    @Insert
+    fun insertAll(bestSellerList: List<BestSellerList>)
 
-    @Query("DELETE FROM BestSeller WHERE title=:title")
-    suspend fun deleteAll(title: String)
+    @Query("DELETE FROM BestSeller")
+    suspend fun deleteAll()
 }

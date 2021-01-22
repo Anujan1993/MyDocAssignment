@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             dialogBox(
-                    "Your internet is off so this data is not updated, This data when you came last time with internet loaded data",
+                    "Your internet is off so this data is not updated, This data when you " +
+                            "came last time with internet loaded data",
                     false
             )
             roomDataObservers()
@@ -75,9 +76,14 @@ class MainActivity : AppCompatActivity() {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             resource.data?.let { it1 ->
-                                val returnSuccess: String = mainViewModel.storeInRoom(it1)
-                                if (returnSuccess == "Success") {
-                                    roomDataObservers()
+                                bookRv.visibility = View.VISIBLE
+                                progress.visibility = View.GONE
+                                val returnSuccess: ArrayList<BestSellerList>? = mainViewModel.storeInRoom(it1)
+                                if (returnSuccess?.size!! > 0) {
+                                   // roomDataObservers()
+                                    adapter = BestSellersAdapter(this, returnSuccess)
+                                    bookRv.adapter = adapter
+                                    adapter.notifyDataSetChanged()
                                 }
                             }
                         }
@@ -104,7 +110,9 @@ class MainActivity : AppCompatActivity() {
                             bookRv.visibility = View.VISIBLE
                             progress.visibility = View.GONE
                             resource.data?.let { it1 ->
-                                resource.data.let { bestSeller -> retrieveList(bestSeller) }
+                                resource.data.let {
+                                        bestSeller -> retrieveList(bestSeller)
+                                }
                             }
                         }
                         Status.ERROR -> {
