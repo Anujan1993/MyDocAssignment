@@ -6,7 +6,6 @@ import com.anujan.mydocassignment.login.LoginViewModel
 import com.anujan.mydocassignment.main.MainViewModel
 import com.anujan.mydocassignment.registration.RegistrationViewModel
 import com.anujan.mydocassignment.registration.enterdetails.EnterDetailsViewModel
-import com.anujan.mydocassignment.settings.SettingsViewModel
 import com.anujan.mydocassignment.singleresult.SingleResultViewModel
 import dagger.Binds
 import dagger.Module
@@ -29,10 +28,6 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel):ViewModel
 
-    @IntoMap
-    @Binds
-    @ViewModelKey(SettingsViewModel::class)
-    abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel):ViewModel
 
     @IntoMap
     @Binds

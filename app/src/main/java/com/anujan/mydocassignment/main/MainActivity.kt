@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -18,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.anujan.mydocassignment.MyApplication
 import com.anujan.mydocassignment.R
 import com.anujan.mydocassignment.adapter.BestSellersAdapter
+import com.anujan.mydocassignment.login.LoginActivity
 import com.anujan.mydocassignment.room.entity.BestSellerList
-import com.anujan.mydocassignment.settings.SettingsActivity
 import com.anujan.mydocassignment.util.Status
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -49,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         userManager.userComponent!!.inject(this)
         progress = findViewById(R.id.progressBar)
-        setupViews()
-
+       // setupViews()
+        findViewById<TextView>(R.id.hello).text = mainViewModel.welcomeText
         bookRv.layoutManager = LinearLayoutManager(this)
         adapter = BestSellersAdapter(this, bestSellers)
 
@@ -67,17 +66,6 @@ class MainActivity : AppCompatActivity() {
                     false
             )
             roomDataObservers()
-        }
-    }
-
-    /**
-     * Updating unread notifications onResume because they can get updated on SettingsActivity
-     */
-
-    private fun setupViews() {
-        findViewById<TextView>(R.id.hello).text = mainViewModel.welcomeText
-        findViewById<Button>(R.id.settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
     private fun setupObservers() {
@@ -161,7 +149,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
         if (id == R.id.action_logout) {
-
+            mainViewModel.logout()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

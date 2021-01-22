@@ -11,12 +11,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [StorageModule::class,AppSubcomponents::class, NetworkModule::class,AppModule::class])
 interface  AppComponent {
-//
-//    fun inject(loginActivity: LoginActivity)
-//    fun inject(registrationActivity: RegistrationActivity)
-//    fun inject(mainActivity: MainActivity)
-//    fun inject(singleResultActivity: SingleResultActivity)
-
     // Factory to create instances of the AppComponent
     @Component.Factory
     interface Factory {

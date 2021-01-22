@@ -6,6 +6,7 @@ import com.anujan.mydocassignment.entity.BestSellers
 import com.anujan.mydocassignment.repository.RoomRepository
 import com.anujan.mydocassignment.room.entity.BestSellerList
 import com.anujan.mydocassignment.user.UserDataRepository
+import com.anujan.mydocassignment.user.UserManager
 import com.anujan.mydocassignment.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +22,8 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
-    private val roomRepository: RoomRepository)
+    private val roomRepository: RoomRepository,
+    private val userManager: UserManager)
     :ViewModel() {
 
     val welcomeText: String
@@ -70,5 +72,8 @@ class MainViewModel @Inject constructor(
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: ErrorMessages.SERVER_ERROR))
         }
+    }
+    fun logout() {
+        userManager.logout()
     }
 }

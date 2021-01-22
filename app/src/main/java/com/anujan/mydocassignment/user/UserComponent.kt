@@ -1,7 +1,6 @@
 package com.anujan.mydocassignment.user
 
 import com.anujan.mydocassignment.main.MainActivity
-import com.anujan.mydocassignment.settings.SettingsActivity
 import com.anujan.mydocassignment.singleresult.SingleResultActivity
 import dagger.Subcomponent
 
@@ -20,6 +19,5 @@ interface UserComponent {
 
     // Classes that can be injected by this Component
     fun inject(activity: MainActivity)
-    fun inject(activity: SettingsActivity)
     fun inject(activity: SingleResultActivity)
 }
