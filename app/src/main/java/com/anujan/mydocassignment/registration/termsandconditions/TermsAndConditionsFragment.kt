@@ -23,6 +23,7 @@ class TermsAndConditionsFragment : Fragment() {
 
         // Grabs the registrationComponent from the Activity and injects this Fragment
         (activity as RegistrationActivity).registrationComponent.inject(this)
+
     }
 
     override fun onCreateView(

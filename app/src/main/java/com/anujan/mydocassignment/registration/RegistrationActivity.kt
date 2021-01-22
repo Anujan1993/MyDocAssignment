@@ -25,6 +25,8 @@ class RegistrationActivity : AppCompatActivity() {
         registrationComponent = (application as MyApplication).appComponent
             .registrationComponent().create()
 
+        supportActionBar?.hide()
+
         // Injects this activity to the just created Registration component
         registrationComponent.inject(this)
 

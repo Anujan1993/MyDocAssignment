@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "131314965597",
+    "project_id": "my-doc-assignment",
+    "storage_bucket": "my-doc-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131314965597:android:36c47d081b6f4e2652c1b4",
+        "android_client_info": {
+          "package_name": "com.anujan.mydocassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131314965597-316e4j8gg9rhktorisqfu6bbtsg8f4b9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAERNq1BYTe5xHFSrCcc09qJof-KBPTl6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131314965597-316e4j8gg9rhktorisqfu6bbtsg8f4b9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
