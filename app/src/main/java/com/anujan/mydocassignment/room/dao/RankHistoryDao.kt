@@ -2,9 +2,7 @@ package com.anujan.mydocassignment.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.anujan.mydocassignment.room.entity.BestSellerList
 import com.anujan.mydocassignment.room.entity.RankHistory
 
 @Dao

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.anujan.mydocassignment.R
-import com.anujan.mydocassignment.entity.Results
 import com.anujan.mydocassignment.room.entity.BestSellerList
 import com.anujan.mydocassignment.singleresult.SingleResultActivity
 import java.io.Serializable

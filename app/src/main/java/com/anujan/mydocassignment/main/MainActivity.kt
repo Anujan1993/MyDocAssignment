@@ -19,14 +19,12 @@ import com.anujan.mydocassignment.R
 import com.anujan.mydocassignment.adapter.BestSellersAdapter
 import com.anujan.mydocassignment.login.LoginActivity
 import com.anujan.mydocassignment.room.entity.BestSellerList
-import com.anujan.mydocassignment.util.Status
+import com.anujan.mydocassignment.util.Status.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
-
-    // @Inject annotated fields will be provided by Dagger
 
     @Inject
     lateinit var mainViewModel: MainViewModel
@@ -34,25 +32,23 @@ class MainActivity : AppCompatActivity() {
     var bestSellers: ArrayList<BestSellerList> = ArrayList()
     private lateinit var progress: ProgressBar
 
-    /**
-     * If the User is not registered, RegistrationActivity will be launched,
-     * If the User is not logged in, LoginActivity will be launched,
-     * else carry on with MainActivity.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Grabs instance of UserManager from the application graph
-        val userManager = (application as MyApplication).appComponent.userManager()
-
+        (application as MyApplication).appComponent.registrationComponent().create().inject(this)
         setContentView(R.layout.activity_main)
-        userManager.userComponent!!.inject(this)
         progress = findViewById(R.id.progressBar)
        // setupViews()
-        findViewById<TextView>(R.id.hello).text = mainViewModel.welcomeText
+
         bookRv.layoutManager = LinearLayoutManager(this)
         adapter = BestSellersAdapter(this, bestSellers)
 
+        mainViewModel?.userName?.observe(this, Observer { message ->
+            message?.let {
+                val welcomeText = "Hello $message!"
+                findViewById<TextView>(R.id.hello).text = welcomeText
+            }
+        })
 
         val cm = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
@@ -74,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.getBooks().observe(it, Observer {
                 it?.let { resource ->
                     when (resource.status) {
-                        Status.SUCCESS -> {
+                        SUCCESS -> {
                             resource.data?.let { it1 ->
                                 bookRv.visibility = View.VISIBLE
                                 progress.visibility = View.GONE
@@ -84,15 +80,16 @@ class MainActivity : AppCompatActivity() {
                                     adapter = BestSellersAdapter(this, returnSuccess)
                                     bookRv.adapter = adapter
                                     adapter.notifyDataSetChanged()
+                                    mainViewModel.getUserName()
                                 }
                             }
                         }
-                        Status.ERROR -> {
+                        ERROR -> {
                             bookRv.visibility = View.VISIBLE
                             progress.visibility = View.GONE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
-                        Status.LOADING -> {
+                        LOADING -> {
                             progress.visibility = View.VISIBLE
                             bookRv.visibility = View.GONE
                         }
@@ -106,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.getBestSellers().observe(it, Observer {
                 it?.let { resource ->
                     when (resource.status) {
-                        Status.SUCCESS -> {
+                        SUCCESS -> {
                             bookRv.visibility = View.VISIBLE
                             progress.visibility = View.GONE
                             resource.data?.let { it1 ->
@@ -115,15 +112,16 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        Status.ERROR -> {
+                        ERROR -> {
                             bookRv.visibility = View.VISIBLE
                             progress.visibility = View.GONE
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                         }
-                        Status.LOADING -> {
+                        LOADING -> {
                             progress.visibility = View.VISIBLE
                             bookRv.visibility = View.GONE
                         }
+
                     }
                 }
             })
@@ -157,7 +155,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.itemId
         if (id == R.id.action_logout) {
-            mainViewModel.logout()
+            mainViewModel.logOut()
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or

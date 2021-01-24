@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:id="@+id/loginView"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".main.MainActivity"
-    android:background="@drawable/background">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.MainActivity"
+        android:background="@drawable/background">
 
         <TextView
             android:id="@+id/textView"
@@ -27,23 +28,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField"
+            android:id="@+id/emailIDMain"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
             app:startIconTint="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/emailID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username" />
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,12 +58,12 @@
             app:startIconTint="@color/colorPrimary"
             app:endIconTint="@color/colorPrimary"
             app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="@+id/textField"
-            app:layout_constraintStart_toStartOf="@+id/textField"
-            app:layout_constraintTop_toBottomOf="@+id/textField">
+            app:layout_constraintEnd_toEndOf="@+id/emailIDMain"
+            app:layout_constraintStart_toStartOf="@+id/emailIDMain"
+            app:layout_constraintTop_toBottomOf="@+id/emailIDMain">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+                android:id="@+id/passwordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -82,32 +84,22 @@
             app:layout_constraintStart_toStartOf="@+id/textField2"
             app:layout_constraintTop_toBottomOf="@+id/textField2" />
 
-    <Button
-        android:id="@+id/unregister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/button_layout"
-        android:paddingLeft="@dimen/medium_padding"
-        android:paddingRight="@dimen/medium_padding"
-        android:text="@string/unregister"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/login"
-        app:layout_constraintStart_toStartOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
-
-        <TextView
-            android:id="@+id/error"
+        <Button
+            android:id="@+id/unregister"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/registration_error"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorAccent"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/textField2"
-            app:layout_constraintStart_toStartOf="@+id/textField2"
-            app:layout_constraintTop_toBottomOf="@+id/textField2" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_layout"
+            android:paddingLeft="@dimen/medium_padding"
+            android:paddingRight="@dimen/medium_padding"
+            android:text="@string/unregister"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/login"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/login"
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            app:layout_constraintVertical_bias="0.006" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

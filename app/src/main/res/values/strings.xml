@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Doc Assignment</string>
     <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="welcome_dagger">Welcome to My Doc World!</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

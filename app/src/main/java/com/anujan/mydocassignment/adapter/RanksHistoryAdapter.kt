@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.anujan.mydocassignment.R
-import com.anujan.mydocassignment.entity.RanksHistory
 import com.anujan.mydocassignment.room.entity.RankHistory
 
 class RanksHistoryAdapter (

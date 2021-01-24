@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".singleresult.SingleResultActivity"></activity>
+        <activity android:name=".singleresult.SingleResultActivity"/>
         <activity android:name=".main.InitActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,16 +24,15 @@
         </activity>
         <activity
             android:name=".main.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".registration.RegistrationActivity"
-            android:screenOrientation="portrait" />
+            android:windowSoftInputMode="adjustResize"
+            android:name=".registration.RegisterActivity"
+            android:screenOrientation="portrait"/>
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".login.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

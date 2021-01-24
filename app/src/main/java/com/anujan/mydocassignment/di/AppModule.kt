@@ -3,7 +3,6 @@ package com.anujan.mydocassignment.di
 import android.content.Context
 import androidx.room.Room
 import com.anujan.mydocassignment.EndPoints
-import com.anujan.mydocassignment.MyApplication
 import com.anujan.mydocassignment.room.AppDataBase
 import com.anujan.mydocassignment.room.dao.BestSellerDao
 import com.anujan.mydocassignment.room.dao.RankHistoryDao

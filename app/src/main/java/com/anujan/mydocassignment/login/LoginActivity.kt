@@ -2,26 +2,22 @@ package com.anujan.mydocassignment.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import com.anujan.mydocassignment.R
 import com.anujan.mydocassignment.MyApplication
 import com.anujan.mydocassignment.main.MainActivity
-import com.anujan.mydocassignment.registration.RegistrationActivity
+import com.anujan.mydocassignment.repository.FirebaseViewModel
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.emailID
+import androidx.lifecycle.Observer
+import com.anujan.mydocassignment.registration.RegisterActivity
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-    // @Inject annotated fields will be provided by Dagger
     @Inject
-    lateinit var loginViewModel: LoginViewModel
-
-    private lateinit var errorTextView: TextView
+    lateinit var firebaseViewModel: FirebaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,42 +27,38 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
-        loginViewModel.loginState.observe(this, Observer<LoginViewState> { state ->
-            when (state) {
-                is LoginSuccess -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+        login.setOnClickListener {
+            firebaseViewModel.loginUserFromAuthWithEmailAndPassword(
+                    emailID.text.toString(),
+                    passwordLogin.text.toString()
+            )
+        }
+
+        unregister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        firebaseViewModel?.currentUserLog?.observe(this, Observer {
+            user -> user?.let {
+                if (user != "Success"){
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                 }
-                is LoginError -> errorTextView.visibility = View.VISIBLE
+                else{
+                    Toast.makeText(this,user,Toast.LENGTH_LONG)
+                }
+            }
+        })
+        firebaseViewModel?.toast?.observe(this, Observer { message ->
+            message?.let {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                firebaseViewModel?.onToastShown()
             }
         })
 
-        errorTextView = findViewById(R.id.error)
-        setupViews()
-    }
-
-    private fun setupViews() {
-        val usernameEditText = findViewById<EditText>(R.id.username)
-        usernameEditText.isEnabled = false
-        usernameEditText.setText(loginViewModel.getUsername())
-
-        val passwordEditText = findViewById<EditText>(R.id.password)
-        passwordEditText.doOnTextChanged { _, _, _, _ -> errorTextView.visibility = View.INVISIBLE }
-
-        findViewById<Button>(R.id.login).setOnClickListener {
-            loginViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
-        }
-        findViewById<Button>(R.id.unregister).setOnClickListener {
-            loginViewModel.unregister()
-            val intent = Intent(this, RegistrationActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-        }
     }
 }
-
-sealed class LoginViewState
-object LoginSuccess : LoginViewState()
-object LoginError : LoginViewState()

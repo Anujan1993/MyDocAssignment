@@ -3,34 +3,46 @@ package com.anujan.mydocassignment.main
 import androidx.lifecycle.*
 import com.anujan.mydocassignment.ErrorMessages
 import com.anujan.mydocassignment.entity.BestSellers
+import com.anujan.mydocassignment.keyName
 import com.anujan.mydocassignment.repository.RoomRepository
 import com.anujan.mydocassignment.room.entity.BestSellerList
 import com.anujan.mydocassignment.room.entity.RankHistory
-import com.anujan.mydocassignment.user.UserDataRepository
-import com.anujan.mydocassignment.user.UserManager
+import com.anujan.mydocassignment.repository.UserDataRepository
+import com.anujan.mydocassignment.repository.UserRepository
+import com.anujan.mydocassignment.repository.implementation.UserRepositoryImpl
+import com.anujan.mydocassignment.storage.Storage
 import com.anujan.mydocassignment.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * MainViewModel is the ViewModel that [MainActivity] uses to
- * obtain information of what to show on the screen.
- *
- * @Inject tells Dagger how to provide instances of this type. Dagger also knows
- * that UserDataRepository is a dependency.
- */
 class MainViewModel @Inject constructor(
-    private val userDataRepository: UserDataRepository,
-    private val roomRepository: RoomRepository,
-    private val userManager: UserManager)
+        private val userDataRepository: UserDataRepository,
+        private val roomRepository: RoomRepository,
+        private val storage: Storage)
     :ViewModel() {
-
+    val userRepository: UserRepository = UserRepositoryImpl(storage)
     var bestSellersList:ArrayList<BestSellerList> = ArrayList()
     var rankHistory:ArrayList<RankHistory> =ArrayList()
 
-    val welcomeText: String
-        get() = "Hello ${userDataRepository.username}!"
+
+    val username: String
+        get() = storage.getString(keyName.REGISTERED_USER)
+
+    private var _userName = MutableLiveData<String?>()
+    val userName: LiveData<String?>
+        get() = _userName
+
+    fun getUserName(){
+        viewModelScope.launch {
+            when(val user = storage.getString(keyName.REGISTERED_USER)){
+                "" -> {
+                    _userName.value = user
+                }
+                else -> _userName.value = user
+            }
+        }
+    }
 
     fun getBooks() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
@@ -73,6 +85,7 @@ class MainViewModel @Inject constructor(
             roomRepository.deleteRankHistory()
             roomRepository.bestSellers(bestSellerList)
             roomRepository.storeRankHistory(rankHistorys)
+
         }
     }
     fun getBestSellers() = liveData(Dispatchers.IO) {
@@ -83,7 +96,9 @@ class MainViewModel @Inject constructor(
             emit(Resource.error(data = null, message = exception.message ?: ErrorMessages.SERVER_ERROR))
         }
     }
-    fun logout() {
-        userManager.logout()
+
+    fun logOut(){
+        userRepository.logOut()
     }
+
 }
